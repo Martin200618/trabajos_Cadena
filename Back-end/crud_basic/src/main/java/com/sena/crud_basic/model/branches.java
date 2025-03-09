@@ -42,6 +42,14 @@ public class branches {
         this.name=name;
     }
 
+    public String getaddres(){
+        return address;
+    }
+
+    public void setaddres(String address){
+        this.address=address;
+    }
+
     public String getphone(){
         return phone;
     }
