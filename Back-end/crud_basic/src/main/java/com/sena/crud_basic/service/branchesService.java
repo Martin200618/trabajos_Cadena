@@ -25,5 +25,12 @@ public class branchesService {
             return branchesDTO;
     }
 
-    
+    public branches converToModel(branchesDTO branchesDTO){
+        branches branches = new branches(
+            0,
+            branchesDTO.getname(),
+            branchesDTO.getphone(),
+            branchesDTO.getaddress());
+        return branches;
+    }
 }
