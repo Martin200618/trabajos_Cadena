@@ -12,11 +12,12 @@ public class pedidosDTO {
         this.total=total;
         this.estado=estado;
     }
+
     public LocalDateTime getfecha_pedido(){
         return fecha_pedido;
     }
-    public void setfecha_pedido(LocalDateTime fecha_pedidos, LocalDateTime fecha_pedido){
-            this.fecha_pedido=fecha_pedido;
+    public void setfecha_pedido(LocalDateTime fecha_pedido){
+        this.fecha_pedido=fecha_pedido;
     }
 
     public double gettotal(){
