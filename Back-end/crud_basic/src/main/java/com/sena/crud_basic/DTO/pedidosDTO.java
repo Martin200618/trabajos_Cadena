@@ -1,5 +1,6 @@
 package com.sena.crud_basic.DTO;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class pedidosDTO {
@@ -11,6 +12,10 @@ public class pedidosDTO {
         this.fecha_pedido=fecha_pedido;
         this.total=total;
         this.estado=estado;
+    }
+
+    public pedidosDTO(Date getfecha_pedido, double gettotal, String getestado) {
+        //TODO Auto-generated constructor stub
     }
 
     public LocalDateTime getfecha_pedido(){

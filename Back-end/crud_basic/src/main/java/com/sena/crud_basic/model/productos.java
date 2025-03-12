@@ -54,8 +54,8 @@ public class productos {
     public String getdescripcion(){
         return descripcion;
     }
-    public void setdescripcion(String descriocion, String descripcion){
-            this.descripcion=descripcion;
+    public void setdescripcion(String descripcion){
+        this.descripcion=descripcion;
     }
 
     public double getprecio(){
