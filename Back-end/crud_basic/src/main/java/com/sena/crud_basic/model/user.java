@@ -24,6 +24,7 @@ public class user {
         private String phone;
     @Column(name="register_data")
         private LocalDateTime register_data;
+    public user(){}
     public user(int user_id, String name, String email, String password, String phone, LocalDateTime register_data) {
         this.user_id = user_id;
         this.name = name;

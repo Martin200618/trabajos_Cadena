@@ -28,14 +28,14 @@ public class userService {
     public responseDTO deleteuser(int user_id){
         if(!fingById(user_id).isPresent()){
             responseDTO respuesta = new responseDTO(
-                HttpStatus.OK.toString(),
-                "El usuario qu edesas encontrar no esta disponible"
+                HttpStatus.BAD_REQUEST.toString(),
+                "El usuario que deseas eliminar no se encuentra o ya esta eliminado"
             );
             return respuesta;
         }
         data.deleteById(user_id);
         responseDTO respuesta = new responseDTO(
-            HttpStatus.BAD_REQUEST.toString(),
+            HttpStatus.OK.toString(),
             "Se elimino correctamente el usuario"
         );
         return respuesta;

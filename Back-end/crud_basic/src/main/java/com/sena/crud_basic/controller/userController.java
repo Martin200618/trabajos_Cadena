@@ -33,14 +33,14 @@ public class userController {
         var ListaUsuario = userService.findAll();
         return new ResponseEntity<>(ListaUsuario,HttpStatus.OK);
     }
-    @GetMapping("/{user_id}")
+    @GetMapping("/get/{user_id}")
     public ResponseEntity<Object> getOneUser(@PathVariable int user_id){
         var usuario = userService.fingById(user_id);
         if(!usuario.isPresent())
             return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/delete/{user_id}")
     public ResponseEntity<Object> deleteUser(@PathVariable int user_id){
         var message = userService.deleteuser(user_id);
         return new ResponseEntity<>(message,HttpStatus.OK);
