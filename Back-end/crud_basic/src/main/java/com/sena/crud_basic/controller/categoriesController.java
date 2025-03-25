@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
-
 @RestController
 @RequestMapping("/api/v1/categories")
 public class categoriesController {
@@ -46,5 +43,4 @@ public class categoriesController {
         var message = categoriesService.deleteCategorie(categorie_id);
         return new ResponseEntity<>(message,HttpStatus.OK);
     }
-    
 }

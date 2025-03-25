@@ -47,7 +47,7 @@ public class userService {
             responseDTO respuesta = new responseDTO(
                 HttpStatus.BAD_REQUEST.toString(),
                 "El nombre completo tiene que ser menor de 100 caracteres"
-            );
+            );   
             return respuesta;
         }
         user userRegister = converToModel(userDTO);
