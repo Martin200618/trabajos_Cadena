@@ -2,6 +2,7 @@ package com.sena.crud_basic.DTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 import com.sena.crud_basic.model.status;
 import com.sena.crud_basic.model.user;
 
@@ -10,6 +11,7 @@ public class OrdersDTO {
     private LocalDateTime orderDate;
     private BigDecimal total;
     private status status;
+    private user user;
     public OrdersDTO() {}
     public OrdersDTO(int orderId, user user, LocalDateTime orderDate, BigDecimal total, com.sena.crud_basic.model.status status) {
         this.orderId = orderId;
@@ -23,10 +25,11 @@ public class OrdersDTO {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
-    public user getUser(){
-        return getUser();
-    }
+    public user getUser() {
+        return user;
+    }   
     public void setUser(user user){
+        this.user = user;
     }
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -45,5 +48,5 @@ public class OrdersDTO {
     }
     public void setStatus(status status) {
         this.status = status;
-    }   
+    }
 }

@@ -10,21 +10,21 @@ import jakarta.persistence.Id;
 public class categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="categorie_id")
-        private int categorie_id;
+    @Column(name="categories_id")
+        private int categories_id;
     @Column(name="name",length = 50)
         private String name;
     public categories() {
     }
-    public categories(int categorie_id, String name) {
-        this.categorie_id = categorie_id;
+    public categories(int categories_id, String name) {
+        this.categories_id = categories_id;
         this.name = name;
     }
     public int getCategorie_id() {
-        return categorie_id;
+        return categories_id;
     }
-    public void setCategorie_id(int categorie_id) {
-        this.categorie_id = categorie_id;
+    public void setCategorie_id(int categories_id) {
+        this.categories_id = categories_id;
     }
     public String getName() {
         return name;

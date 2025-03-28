@@ -62,4 +62,19 @@ public class categoriesService {
         );
         return categories;
     }
+
+    public responseDTO update(int categories_id, categoriesDTO categoriesDTO){
+        if(!findById(categories_id).isPresent()){
+            return new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),
+                "La categoria no fue encontrada"
+            );
+        }
+        categories categories = converToModel(categoriesDTO);
+        data.save(categories);
+        return new responseDTO(
+            HttpStatus.OK.toString(),
+            "La categoria fue actualizada correctamente"
+        );
+    }
 }

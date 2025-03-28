@@ -42,6 +42,21 @@ public class ProductService {
         return respuesta;
     }
 
+    public responseDTO update(int product_id, productsDTO productsDTO) {
+        Optional<products> existingProduct = fingById(product_id);
+        if (existingProduct.isPresent()) {
+            products productToUpdate = existingProduct.get();
+            productToUpdate.setName(productsDTO.getName());
+            productToUpdate.setDescription(productsDTO.getDescription());
+            productToUpdate.setPrice(productsDTO.getPrice());
+            productToUpdate.setStock(productsDTO.getStock());
+            data.save(productToUpdate);
+            return new responseDTO(HttpStatus.OK.toString(), "Product updated successfully");
+        } else {
+            return new responseDTO(HttpStatus.NOT_FOUND.toString(), "Product not found");
+        }
+    }
+
     public responseDTO save(productsDTO productsDTO){
         products products = converToModel(productsDTO);
         data.save(products);
@@ -55,7 +70,7 @@ public class ProductService {
     public  productsDTO converToDTO( products products){
         productsDTO productsDTO =  new productsDTO(
             products.getProduct_id(),
-            products.getCategorie_id(),
+            products.getCategories_id(),
             products.getName(),
             products.getDescription(),
             products.getPrice(),
@@ -71,7 +86,7 @@ public class ProductService {
             productsDTO.getDescription(),
             productsDTO.getPrice(),
             productsDTO.getStock(),
-            productsDTO.getCategorie_id()
+            productsDTO.getCategories_id()
         );
         return products;
     }

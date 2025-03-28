@@ -79,4 +79,21 @@ public class userService {
             );
         return user;
     }
+
+    public responseDTO update(int user_id, userDTO userDTO){
+        if(!fingById(user_id).isPresent()){
+            responseDTO respuesta = new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(),
+                "El usuario que deseas actualizar no se encuentra o ya esta eliminado"
+            );
+            return respuesta;
+        }
+        user userRegister = converToModel(userDTO);
+        data.save(userRegister);
+        responseDTO respuesta = new responseDTO(
+            HttpStatus.OK.toString(),
+            "Se actualizo correctamente el usuario"
+        );
+        return respuesta;
+    }
 }

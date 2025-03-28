@@ -23,17 +23,16 @@ public class products {
     @Column(name="stock")
         private double stock;
     @ManyToOne
-    @JoinColumn(name="categorie_id")
-        private categories categorie_id;
+    @JoinColumn(name="categories_id",nullable = false)
+        private categories categories_id;
     public products() {
     }
-    public products(int product_id, String name, String description, double price, double stock, categories categorie_id) {
+    public products(int product_id, String name, String description, double price, double stock, categories categories_id) {
         this.product_id = product_id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
-        this.categorie_id = categorie_id;
     }
     public int getProduct_id() {
         return product_id;
@@ -65,10 +64,10 @@ public class products {
     public void setStock(double stock) {
         this.stock = stock;
     }
-    public categories getCategorie_id() {
-        return categorie_id;
+    public categories getCategories_id() {
+        return categories_id;
     }
-    public void setCategorie_id(categories categorie_id) {
-        this.categorie_id = categorie_id;
+    public void setCategories_id(categories categories_id) {
+        this.categories_id = categories_id;
     }
 }
