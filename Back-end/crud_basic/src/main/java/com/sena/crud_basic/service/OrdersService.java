@@ -17,7 +17,7 @@ public class OrdersService {
     @Autowired
     private IOrders data;
 
-    public List<Orders> finAll(){
+    public List<Orders> findAll(){
         return data.findAll();
     }
 

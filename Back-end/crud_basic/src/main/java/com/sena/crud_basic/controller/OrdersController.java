@@ -30,7 +30,7 @@ public class OrdersController {
 
     @GetMapping("/")
     public ResponseEntity<Object> getAllOrders(){
-        var listaOrders = OrdersService.finAll();
+        var listaOrders = OrdersService.findAll();
         return new ResponseEntity<>(listaOrders, HttpStatus.OK);
     }
 
