@@ -41,8 +41,8 @@ public class suppliersService {
         return respuesta;
     }
 
-    public responseDTO save(suppliersDTO suppliersDTO){
-        suppliers suppliers = converToModel(suppliersDTO);
+    public responseDTO save(suppliersDTO suppliers2){
+        suppliers suppliers = converToModel(suppliers2);
         data.save(suppliers);
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(),
@@ -70,7 +70,7 @@ public class suppliersService {
         return suppliers;
     }
 
-    public responseDTO update(int suppliersId, suppliersDTO suppliersDTO){
+    public responseDTO update(int suppliersId, suppliersDTO suppliers){
         Optional<suppliers> existingSuppliersOtp = data.findById(suppliersId);
         if(existingSuppliersOtp.isPresent()){
             suppliers existingSupplier = existingSuppliersOtp.get();

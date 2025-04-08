@@ -48,7 +48,7 @@ public class userController {
         var usuario = userService.fingById(user_id);
         if(!usuario.isPresent())
             return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
-        responseDTO respuesta = userService.save(user);
+        responseDTO respuesta = userService.update(user_id, user);
         return new ResponseEntity<>(respuesta,HttpStatus.OK);
     }
 }
