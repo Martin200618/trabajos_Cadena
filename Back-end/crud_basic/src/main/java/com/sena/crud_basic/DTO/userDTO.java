@@ -4,12 +4,10 @@ public class userDTO {
     private String name;
     private String email;
     private String password;
-    private String phone;
-    public userDTO(String name, String email, String password, String phone) {
+    public userDTO(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.phone = phone;
     }
     public String getName() {
         return name;
@@ -29,11 +27,4 @@ public class userDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getPhone() {
-        return phone;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    
 }

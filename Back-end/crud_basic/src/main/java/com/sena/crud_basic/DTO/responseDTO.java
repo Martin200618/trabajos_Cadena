@@ -3,7 +3,7 @@ package com.sena.crud_basic.DTO;
 public class responseDTO {
     private String status;
     private String message;
-    public responseDTO(String status, String message) {
+    public responseDTO(String status, String message){
         this.status = status;
         this.message = message;
     }

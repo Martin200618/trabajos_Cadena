@@ -1,29 +1,59 @@
-document.getElementById("formRegistro").addEventListener("submit", async function(e) {
-    e.preventDefault();
+const API_URL = "http://localhost:8085/api/v1/user";
 
-    const nombre = document.getElementById("nombre").value;
-    const correo = document.getElementById("correo").value;
-    const contraseña = document.getElementById("contraseña").value;
-
-    const data = {
-        nombre: nombre,
-        correo: correo,
-        contraseña: contraseña
-    };
-
-    try {
-        const response = await fetch("http://localhost:8080/api/usuarios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-        alert(result.mensaje || "Usuario registrado correctamente.");
-    } catch (error) {
-        console.error("Error al registrar usuario:", error);
-        alert("Ocurrió un error al registrar el usuario.");
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#registerModal form");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await registerUser();
+    });
+  }
 });
+
+async function registerUser() {
+  try {
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value.trim();
+
+    if (!name || !email || !password) {
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
+
+    const bodyContent = JSON.stringify({
+      userId: 0,
+      name: name,
+      email: email,
+      password: password
+    });
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: bodyContent
+    });
+
+    if (response.ok) {
+      const data = await response.text();
+      alert(data);
+
+      document.getElementById("registerName").value = "";
+      document.getElementById("registerEmail").value = "";
+      document.getElementById("registerPassword").value = "";
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById("registerModal"));
+      if (modal) modal.hide();
+
+      window.location.reload();
+    } else {
+      const errorText = await response.text();
+      alert(`Error: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("Error al registrar el usuario", error);
+    alert("Ocurrió un error durante el registro: " + error.message);
+  }
+}

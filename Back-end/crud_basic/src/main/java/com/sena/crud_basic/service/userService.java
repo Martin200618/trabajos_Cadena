@@ -63,8 +63,8 @@ public class userService {
         userDTO userDTO = new userDTO(
             user.getName(),
             user.getEmail(),
-            user.getPassword(),
-            user.getPhone());
+            user.getPassword()
+        );
         return userDTO;
     }
 
@@ -74,9 +74,8 @@ public class userService {
             userDTO.getName(),
             userDTO.getEmail(),
             userDTO.getPassword(),
-            userDTO.getPhone(),
             LocalDateTime.now()
-            );
+        );
         return user;
     }
 

@@ -1,29 +1,42 @@
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-  
-    const correo = document.getElementById("correo").value;
-    const contrasena = document.getElementById("contrasena").value;
-    const errorMensaje = document.getElementById("errorMensaje");
-  
-    try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ correo, contrasena })
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        // Guardar token o datos de sesión si es necesario
-        localStorage.setItem("usuario", JSON.stringify(data));
-        window.location.href = "index.html";
-      } else {
-        const error = await response.json();
-        errorMensaje.textContent = error.mensaje || "Credenciales incorrectas.";
-      }
-    } catch (error) {
-      errorMensaje.textContent = "Error de conexión con el servidor.";
+const API_URL = "http://localhost:8085/api/v1/user"
+
+async function loginUser(params) {
+  try{
+    const email = document.getElementById("Correo Electronico").value.trim();
+    const password = document.getElementById("Contraseña").value.trim();
+
+
+    if(
+      !email||
+      !password
+    ){
+      alert("El correo y la contraseña son obligatorios");
+      return;
     }
-});  
+
+    let bodyContent = JSON.stringify({
+      "email": email,
+      "password": password
+    });
+
+    let response  = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: bodyContent
+    });
+
+    if(response.ok){
+      let data = await response.json();
+      alert(data.message);
+      window.location.href = "/index.html"
+    }else{
+      let errorData = await response.json();
+      alert(errorData.message);
+    }
+  } catch(error){
+    console.error("Error al iniciar sesion:", error);
+    alert("Ocurrio un error durante el inicio de sesion: "+ error.message);
+  } 
+}

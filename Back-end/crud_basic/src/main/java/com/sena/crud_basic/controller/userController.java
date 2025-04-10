@@ -15,7 +15,6 @@ import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.userDTO;
 import com.sena.crud_basic.service.userService;
 
-
 @RestController
 @RequestMapping("/api/v1/user")
 public class userController {
