@@ -1,4 +1,5 @@
-package config;
+package com.sena.crud_basic.config;
+
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
