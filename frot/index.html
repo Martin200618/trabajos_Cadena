@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sube tu Proyecto</title>
+  <link href="./bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .material-img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .upload-btn {
+        margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100"> 
+<!-- NAVBAR -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+  
+      <!-- Contenido a la izquierda -->
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand mb-0 me-2" href="#">
+          <img src="./img/logo.jpg" alt="logo" width="60">
+        </a>
+        <span class="navbar-brand mb-0 h1">Proyectos de software</span>
+      </div>
+  
+      <!-- Botón hamburguesa: solo en pantallas pequeñas -->
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Botón Login: solo en pantallas grandes -->
+      <div class="d-none d-lg-block">
+        <a href="./login.html" class="btn btn-outline-light">Login</a>
+      </div>
+  
+      <!-- Menú lateral (offcanvas) para pantallas pequeñas -->
+      <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./login.html">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+    </div>
+  </nav>
+  
+  <!-- HEADER -->
+  <div class="container text-center my-5">
+    <h1 class="display-4">Sube tu Proyecto</h1>
+    <p class="lead">Selecciona el tipo de proyecto y compártelo con las personas que necesites.</p>
+  </div>
+
+  <!-- GALERÍA DE MATERIALES -->
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card">
+          <img src="./img/inv.png" class="card-img-top material-img" alt="Madera">
+          <div class="card-body text-center">
+            <h5 class="card-title">Inventarios</h5>
+            <p class="card-text">Proyectos de software de inventarios.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="./img/events.jpg" class="card-img-top material-img" alt="Concreto">
+          <div class="card-body text-center">
+            <h5 class="card-title">Creaciones de eventos</h5>
+            <p class="card-text">Proyectos de software sobre la creacion de eventos.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="./img/ecommerce.jpg" class="card-img-top material-img" alt="Acero">
+          <div class="card-body text-center">
+            <h5 class="card-title">Ecommerces</h5>
+            <p class="card-text">Proyectos de software de comercio electronico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer text-center py-3 bg-light">
+    &copy; 2025 Gestión de Proyectos. Todos los derechos reservados.
+  </footer>
+
+  <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

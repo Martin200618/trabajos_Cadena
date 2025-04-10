@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyectos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body onload="cargarProyectos()">
+
+    <h1>Listado de Proyectos</h1>
+
+    <div id="formularioProyecto">
+        <h2>Registrar nuevo proyecto</h2>
+        <form id="nuevoProyectoForm">
+            <input type="text" id="nombreProyecto" placeholder="Nombre del proyecto" required>
+            <textarea id="descripcionProyecto" placeholder="Descripción"></textarea>
+            <input type="date" id="fechaInicio" required>
+            <input type="date" id="fechaFin" required>
+            <input type="number" id="usuarioId" placeholder="ID del usuario creador" required>
+            <button type="submit">Guardar Proyecto</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div id="listaProyectos">
+        <!-- Aquí se mostrarán los proyectos -->
+    </div>
+
+    <script src="js/proyectos.js"></script>
+</body>
+</html>
