@@ -8,56 +8,69 @@
 
   <style>
     .material-img {
-        height: 200px;
-        object-fit: cover;
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
     }
 
     .upload-btn {
-        margin-top: 20px;
+      margin-top: 20px;
     }
 
+    .custom-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-body {
+      flex-grow: 1;
+    }
   </style>
 </head>
 <body class="d-flex flex-column min-vh-100"> 
 <!-- NAVBAR -->
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-  
-      <!-- Contenido a la izquierda -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Contenido a la izquierda -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand mb-0 me-2" href="#">
           <img src="./img/logo.jpg" alt="logo" width="60">
         </a>
         <span class="navbar-brand mb-0 h1">Proyectos de software</span>
       </div>
-  
-      <!-- Botón hamburguesa: solo en pantallas pequeñas -->
+
+    <!-- Botón hamburguesa -->
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
-      <!-- Botón Login: solo en pantallas grandes -->
+
+      <!-- Botones en pantallas grandes -->
       <div class="d-none d-lg-block">
-        <a href="./login.html" class="btn btn-outline-light">Login</a>
+        <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
       </div>
-  
-      <!-- Menú lateral (offcanvas) para pantallas pequeñas -->
-      <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="./login.html">Login</a>
-            </li>
-          </ul>
-        </div>
+
+    <!-- Menú lateral (offcanvas) -->
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
       </div>
-  
+      <div class="offcanvas-body">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="offcanvas">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="offcanvas">Registro</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>
   
   <!-- HEADER -->
   <div class="container text-center my-5">
@@ -68,30 +81,30 @@
   <!-- GALERÍA DE MATERIALES -->
   <div class="container">
     <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card">
-          <img src="./img/inv.png" class="card-img-top material-img" alt="Madera">
+      <div class="col-md-4 d-flex">
+        <div class="card custom-card h-100">
+          <img src="./img/inv.png" class="card-img-top material-img" alt="Inventarios">
           <div class="card-body text-center">
             <h5 class="card-title">Inventarios</h5>
             <p class="card-text">Proyectos de software de inventarios.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="./img/events.jpg" class="card-img-top material-img" alt="Concreto">
+      <div class="col-md-4 d-flex">
+        <div class="card custom-card h-100">
+          <img src="./img/events.jpg" class="card-img-top material-img" alt="Eventos">
           <div class="card-body text-center">
             <h5 class="card-title">Creaciones de eventos</h5>
-            <p class="card-text">Proyectos de software sobre la creacion de eventos.</p>
+            <p class="card-text">Proyectos de software sobre la creación de eventos.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card">
-          <img src="./img/ecommerce.jpg" class="card-img-top material-img" alt="Acero">
+      <div class="col-md-4 d-flex">
+        <div class="card custom-card h-100">
+          <img src="./img/ecommerce.jpg" class="card-img-top material-img" alt="Ecommerce">
           <div class="card-body text-center">
             <h5 class="card-title">Ecommerces</h5>
-            <p class="card-text">Proyectos de software de comercio electronico.</p>
+            <p class="card-text">Proyectos de software de comercio electrónico.</p>
           </div>
         </div>
       </div>
@@ -99,9 +112,63 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer text-center py-3 bg-light">
+  <footer class="footer text-center py-3 bg-light mt-auto">
     &copy; 2025 Gestión de Proyectos. Todos los derechos reservados.
   </footer>
+
+  <!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="loginEmail" placeholder="usuario@correo.com">
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Registro -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel">Registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="registerName" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="registerName" placeholder="Tu nombre">
+          </div>
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="registerEmail" placeholder="usuario@correo.com">
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="registerPassword" placeholder="Contraseña">
+          </div>
+          <button type="submit" class="btn btn-success w-100">Registrarse</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
 </body>
