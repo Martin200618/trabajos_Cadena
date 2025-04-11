@@ -24,6 +24,62 @@ public class userService {
     public Optional<user> fingById(int user_id){
         return data.findById(user_id);
     }
+    // Guardar un usuario
+    public responseDTO save(userDTO userDTO) {
+        if (userDTO == null) {
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(),
+                "Los datos del empleado son inválidos"
+            );
+        }
+
+        Optional<user> existingEmployee = data.findByEmail(userDTO.getEmail());
+        if (existingEmployee.isPresent()) {
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(),
+                "El correo ya está registrado"
+            );
+        }
+
+        if (userDTO.getName() == null || userDTO.getName().trim().isEmpty() ||
+            userDTO.getName().length() > 100) {
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(),
+                "El nombre completo debe tener entre 1 y 100 caracteres"
+            );
+        }
+
+        user userEntity = converToModel(userDTO);
+        data.save(userEntity);
+        return new responseDTO(
+            HttpStatus.OK.toString(),
+            "Empleado guardado exitosamente"
+        );
+    }
+
+    // Iniciar sesión
+    public responseDTO login(String email, String password) {
+        Optional<user> employee = data.findByEmail(email);
+
+        if (employee.isEmpty()) {
+            return new responseDTO(
+                HttpStatus.UNAUTHORIZED.toString(),
+                "Email no registrado"
+            );
+        }
+
+        if (!employee.get().getPassword().equals(password)) {
+            return new responseDTO(
+                HttpStatus.UNAUTHORIZED.toString(),
+                "Contraseña incorrecta"
+            );
+        }
+
+        return new responseDTO(
+            HttpStatus.OK.toString(),
+            "Inicio de sesión exitoso"
+        );
+    }
 
     public responseDTO deleteuser(int user_id){
         if(!fingById(user_id).isPresent()){
@@ -37,24 +93,6 @@ public class userService {
         responseDTO respuesta = new responseDTO(
             HttpStatus.OK.toString(),
             "Se elimino correctamente el usuario"
-        );
-        return respuesta;
-    }
-
-    public responseDTO save(userDTO userDTO){
-        if(userDTO.getName().length()<1 ||
-        userDTO.getName().length()>100){
-            responseDTO respuesta = new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "El nombre completo tiene que ser menor de 100 caracteres"
-            );   
-            return respuesta;
-        }
-        user userRegister = converToModel(userDTO);
-        data.save(userRegister);
-        responseDTO respuesta = new responseDTO(
-            HttpStatus.OK.toString(),
-            "Se guardo correctamente"
         );
         return respuesta;
     }
@@ -80,19 +118,19 @@ public class userService {
     }
 
     public responseDTO update(int user_id, userDTO userDTO){
-        if(!fingById(user_id).isPresent()){
-            responseDTO respuesta = new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "El usuario que deseas actualizar no se encuentra o ya esta eliminado"
-            );
-            return respuesta;
+        Optional<user> existingUser = fingById(user_id);
+        if (!existingUser.isPresent()) {
+            return new responseDTO(HttpStatus.BAD_REQUEST.toString(),
+                "El usuario que deseas actualizar no se encuentra o ya esta eliminado");
         }
-        user userRegister = converToModel(userDTO);
-        data.save(userRegister);
-        responseDTO respuesta = new responseDTO(
-            HttpStatus.OK.toString(),
-            "Se actualizo correctamente el usuario"
-        );
-        return respuesta;
+    
+        user userToUpdate = existingUser.get();
+        userToUpdate.setName(userDTO.getName());
+        userToUpdate.setEmail(userDTO.getEmail());
+        userToUpdate.setPassword(userDTO.getPassword());
+    
+        data.save(userToUpdate);
+    
+        return new responseDTO(HttpStatus.OK.toString(), "Se actualizó correctamente el usuario");
     }
 }

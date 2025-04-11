@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sube tu Proyecto</title>
+  <title>Tus Proyectos</title>
   <link href="./bootstrap-5.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -141,36 +141,37 @@
   </div>
 </div>
 
-<!-- MODAL REGISTRO -->
+<!-- Modal de Registro -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> <!-- Aquí también -->
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="registerModalLabel">Registro</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <form>
+      <form id="registerForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="registerName" class="form-label">Nombre completo</label>
-            <input type="text" class="form-control" id="registerName" placeholder="Tu nombre">
+            <label for="name" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="name" required>
           </div>
           <div class="mb-3">
-            <label for="registerEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="registerEmail" placeholder="usuario@correo.com">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" required>
           </div>
           <div class="mb-3">
-            <label for="registerPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="registerPassword" placeholder="Contraseña">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" required>
           </div>
-          <button type="submit" class="btn btn-success w-100">Registrarse</button>
-        </form>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-<script src="./js/login.js"></script>
-<script src="./js/registro.js"></script>
+<script src="./js/login-register.js"></script>
 <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
