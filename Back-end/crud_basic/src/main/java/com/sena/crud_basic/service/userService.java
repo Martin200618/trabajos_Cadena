@@ -15,122 +15,99 @@ import com.sena.crud_basic.repository.Iuser;
 
 @Service
 public class userService {
+
     @Autowired
     private Iuser data;
-    public List<user> findAll(){
+
+    // Obtener todos los usuarios
+    public List<user> findAll() {
         return data.findAll();
     }
 
-    public Optional<user> fingById(int user_id){
+    // Obtener usuario por ID
+    public Optional<user> findById(int user_id) {
         return data.findById(user_id);
     }
-    // Guardar un usuario
+
+    // Registrar un usuario
     public responseDTO save(userDTO userDTO) {
-        if (userDTO == null) {
-            return new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "Los datos del empleado son inválidos"
-            );
+        if (userDTO == null || !isValidUser(userDTO)) {
+            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "Los datos del usuario son inválidos");
         }
 
-        Optional<user> existingEmployee = data.findByEmail(userDTO.getEmail());
-        if (existingEmployee.isPresent()) {
-            return new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "El correo ya está registrado"
-            );
+        if (data.findByEmail(userDTO.getEmail()).isPresent()) {
+            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "El correo ya está registrado");
         }
 
-        if (userDTO.getName() == null || userDTO.getName().trim().isEmpty() ||
-            userDTO.getName().length() > 100) {
-            return new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "El nombre completo debe tener entre 1 y 100 caracteres"
-            );
-        }
-
-        user userEntity = converToModel(userDTO);
+        user userEntity = convertToModel(userDTO);
         data.save(userEntity);
-        return new responseDTO(
-            HttpStatus.OK.toString(),
-            "Empleado guardado exitosamente"
-        );
+        return new responseDTO(HttpStatus.OK.toString(), "Usuario registrado exitosamente");
     }
 
     // Iniciar sesión
     public responseDTO login(String email, String password) {
-        Optional<user> employee = data.findByEmail(email);
+        Optional<user> user = data.findByEmail(email);
 
-        if (employee.isEmpty()) {
+        if (user.isEmpty()) {
+            return new responseDTO(HttpStatus.UNAUTHORIZED.toString(), "Email no registrado");
+        }
+
+        if (!user.get().getPassword().equals(password)) {
+            return new responseDTO(HttpStatus.UNAUTHORIZED.toString(), "Contraseña incorrecta");
+        }
+
+        return new responseDTO(HttpStatus.OK.toString(), "Inicio de sesión exitoso");
+    }
+
+    // Eliminar usuario por ID
+    public responseDTO deleteUser(int user_id) {
+        Optional<user> user = findById(user_id);
+
+        if (user.isEmpty()) {
             return new responseDTO(
-                HttpStatus.UNAUTHORIZED.toString(),
-                "Email no registrado"
+                HttpStatus.BAD_REQUEST.toString(),
+                "El usuario no existe o ya fue eliminado"
             );
         }
 
-        if (!employee.get().getPassword().equals(password)) {
-            return new responseDTO(
-                HttpStatus.UNAUTHORIZED.toString(),
-                "Contraseña incorrecta"
-            );
-        }
-
+        data.deleteById(user_id);
         return new responseDTO(
             HttpStatus.OK.toString(),
-            "Inicio de sesión exitoso"
+            "Usuario eliminado correctamente"
         );
     }
 
-    public responseDTO deleteuser(int user_id){
-        if(!fingById(user_id).isPresent()){
-            responseDTO respuesta = new responseDTO(
-                HttpStatus.BAD_REQUEST.toString(),
-                "El usuario que deseas eliminar no se encuentra o ya esta eliminado"
-            );
-            return respuesta;
-        }
-        data.deleteById(user_id);
-        responseDTO respuesta = new responseDTO(
-            HttpStatus.OK.toString(),
-            "Se elimino correctamente el usuario"
-        );
-        return respuesta;
-    }
+    // Actualizar usuario por ID
+    public responseDTO update(int user_id, userDTO userDTO) {
+        Optional<user> existingUser = findById(user_id);
 
-    public userDTO converToDTO(user user){
-        userDTO userDTO = new userDTO(
-            user.getName(),
-            user.getEmail(),
-            user.getPassword()
-        );
-        return userDTO;
-    }
-
-    public user converToModel(userDTO userDTO){
-        user user =  new user(
-            0,
-            userDTO.getName(),
-            userDTO.getEmail(),
-            userDTO.getPassword(),
-            LocalDateTime.now()
-        );
-        return user;
-    }
-
-    public responseDTO update(int user_id, userDTO userDTO){
-        Optional<user> existingUser = fingById(user_id);
         if (!existingUser.isPresent()) {
-            return new responseDTO(HttpStatus.BAD_REQUEST.toString(),
-                "El usuario que deseas actualizar no se encuentra o ya esta eliminado");
+            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "El usuario no existe o ya fue eliminado");
         }
-    
+
         user userToUpdate = existingUser.get();
         userToUpdate.setName(userDTO.getName());
         userToUpdate.setEmail(userDTO.getEmail());
         userToUpdate.setPassword(userDTO.getPassword());
-    
+
         data.save(userToUpdate);
-    
-        return new responseDTO(HttpStatus.OK.toString(), "Se actualizó correctamente el usuario");
+        return new responseDTO(HttpStatus.OK.toString(), "Usuario actualizado correctamente");
+    }
+
+    // Conversión de Entidad a DTO
+    public userDTO convertToDTO(user user) {
+        return new userDTO(user.getName(), user.getEmail(), user.getPassword());
+    }
+
+    // Conversión de DTO a Entidad
+    public user convertToModel(userDTO userDTO) {
+        return new user(0, userDTO.getName(), userDTO.getEmail(), userDTO.getPassword(), LocalDateTime.now());
+    }
+
+    // Validación de datos de usuario
+    private boolean isValidUser(userDTO userDTO) {
+        return userDTO.getName() != null && !userDTO.getName().trim().isEmpty()
+                && userDTO.getName().length() <= 100
+                && userDTO.getEmail() != null && !userDTO.getEmail().trim().isEmpty();
     }
 }

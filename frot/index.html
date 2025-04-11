@@ -125,14 +125,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="event.preventDefault(); loginUser();">
           <div class="mb-3">
             <label for="loginEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="loginEmail" placeholder="usuario@correo.com">
+            <input type="email" class="form-control" id="loginEmail" placeholder="usuario@correo.com" required>
           </div>
           <div class="mb-3">
             <label for="loginPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña">
+            <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
           </div>
           <button type="submit" class="btn btn-primary w-100">Ingresar</button>
         </form>
@@ -145,7 +145,7 @@
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="registerForm">
+      <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
         <div class="modal-header">
           <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -171,6 +171,7 @@
     </div>
   </div>
 </div>
+
 <script src="./js/login-register.js"></script>
 <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
 </body>
