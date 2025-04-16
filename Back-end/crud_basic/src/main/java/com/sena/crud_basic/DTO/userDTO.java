@@ -4,6 +4,10 @@ public class userDTO {
     private String name;
     private String email;
     private String password;
+
+    public userDTO() {
+    }
+
     public userDTO(String name, String email, String password) {
         this.name = name;
         this.email = email;
