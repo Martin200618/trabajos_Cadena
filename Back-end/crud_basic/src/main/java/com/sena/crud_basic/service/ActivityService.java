@@ -44,9 +44,68 @@ public class ActivityService {
                 "Actividad registrada correctamente"
             );
         } catch (Exception e) {
-            return new responseDTO(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "Error al registrar el proyecto");
+            return new responseDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
+                "Error al registrar el proyecto"
+            );
         }
     }
 
-    
+    public responseDTO update(int Activity_id, ActivityDTO ActivityDTO){
+        if (Activity_id <= 0 || ActivityDTO == null) {
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "Los datos de la actividad son invalidos"
+            );
+        }
+
+        Optional<Activity> existingActivity = data.findById(Activity_id);
+        if (!existingActivity.isPresent()) {
+            return new responseDTO(
+                HttpStatus.NOT_FOUND.toString(), 
+                "Actividad no encontrada"
+            );
+        }
+
+        Activity activityToUpdate = existingActivity.get();
+        activityToUpdate.setUser_id(ActivityDTO.getUser_id());
+        activityToUpdate.setAccion(ActivityDTO.getAccion());
+        activityToUpdate.setFecha(ActivityDTO.getFecha());
+
+        try{
+            data.save(activityToUpdate);
+            return new responseDTO(
+                HttpStatus.OK.toString(), 
+                "Actividad actualizada correctamente"
+            );
+        } catch (Exception e) {
+            return new responseDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
+                "Error al actualizar la actividad"
+            );
+        }
+    }   
+
+    public responseDTO deleteActivity(int Activity_id){
+        Optional<Activity> existingActivity = findById(Activity_id);
+        if (!existingActivity.isPresent()) {
+            return new responseDTO(
+                HttpStatus.NOT_FOUND.toString(),    
+                "Actividad no encontrada"
+            );
+        }
+
+        try{
+            data.deleteById(Activity_id);
+            return new responseDTO(
+                HttpStatus.OK.toString(), 
+                "Actividad eliminada correctamente"
+            );
+        } catch (Exception e) {
+            return new responseDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
+                "Error al eliminar la actividad"
+            );
+        }
+    }
 }
