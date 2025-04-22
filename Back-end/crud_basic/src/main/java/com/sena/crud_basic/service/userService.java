@@ -32,16 +32,25 @@ public class userService {
     // Registrar un usuario
     public responseDTO save(userDTO userDTO) {
         if (userDTO == null || !isValidUser(userDTO)) {
-            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "Los datos del usuario son inválidos");
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "Los datos del usuario son inválidos"
+            );
         }
 
         if (data.findByEmail(userDTO.getEmail()).isPresent()) {
-            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "El correo ya está registrado");
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "El correo ya está registrado"
+            );
         }
 
         user userEntity = convertToModel(userDTO);
         data.save(userEntity);
-        return new responseDTO(HttpStatus.OK.toString(), "Usuario registrado exitosamente");
+        return new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Usuario registrado exitosamente"
+        );
     }
 
     // Iniciar sesión
@@ -49,14 +58,23 @@ public class userService {
         Optional<user> user = data.findByEmail(email);
 
         if (user.isEmpty()) {
-            return new responseDTO(HttpStatus.UNAUTHORIZED.toString(), "Email no registrado");
+            return new responseDTO(
+                HttpStatus.UNAUTHORIZED.toString(), 
+                "Email no registrado"
+            );
         }
 
         if (!user.get().getPassword().equals(password)) {
-            return new responseDTO(HttpStatus.UNAUTHORIZED.toString(), "Contraseña incorrecta");
+            return new responseDTO(
+                HttpStatus.UNAUTHORIZED.toString(), 
+                "Contraseña incorrecta"
+            );
         }
 
-        return new responseDTO(HttpStatus.OK.toString(), "Inicio de sesión exitoso");
+        return new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Inicio de sesión exitoso"
+        );
     }
 
     // Eliminar usuario por ID
@@ -82,7 +100,10 @@ public class userService {
         Optional<user> existingUser = findById(user_id);
 
         if (!existingUser.isPresent()) {
-            return new responseDTO(HttpStatus.BAD_REQUEST.toString(), "El usuario no existe o ya fue eliminado");
+            return new responseDTO(
+                HttpStatus.BAD_REQUEST.toString(), 
+                "El usuario no existe o ya fue eliminado"
+            );
         }
 
         user userToUpdate = existingUser.get();
@@ -91,23 +112,36 @@ public class userService {
         userToUpdate.setPassword(userDTO.getPassword());
 
         data.save(userToUpdate);
-        return new responseDTO(HttpStatus.OK.toString(), "Usuario actualizado correctamente");
+        return new responseDTO(
+            HttpStatus.OK.toString(), 
+            "Usuario actualizado correctamente"
+        );
     }
 
     // Conversión de Entidad a DTO
     public userDTO convertToDTO(user user) {
-        return new userDTO(user.getName(), user.getEmail(), user.getPassword());
+        return new userDTO(
+            user.getName(), 
+            user.getEmail(), 
+            user.getPassword()
+        );
     }
 
     // Conversión de DTO a Entidad
     public user convertToModel(userDTO userDTO) {
-        return new user(0, userDTO.getName(), userDTO.getEmail(), userDTO.getPassword(), LocalDateTime.now());
+        return new user(
+            0, 
+            userDTO.getName(), 
+            userDTO.getEmail(), 
+            userDTO.getPassword(), 
+            LocalDateTime.now()
+        );
     }
 
     // Validación de datos de usuario
     private boolean isValidUser(userDTO userDTO) {
         return userDTO.getName() != null && !userDTO.getName().trim().isEmpty()
-                && userDTO.getName().length() <= 100
-                && userDTO.getEmail() != null && !userDTO.getEmail().trim().isEmpty();
+        && userDTO.getName().length() <= 100
+        && userDTO.getEmail() != null && !userDTO.getEmail().trim().isEmpty();
     }
 }

@@ -19,7 +19,7 @@ public class Comments {
 
     @ManyToOne
     @JoinColumn(name="proyecto_id", nullable = false)
-    private proyects proyectId;
+    private filas proyectId;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
@@ -33,7 +33,7 @@ public class Comments {
 
     public Comments() {}
 
-    public Comments(int comment_id, proyects proyectId, user user_id, String texto, LocalDateTime fecha_creacion) {
+    public Comments(int comment_id, filas proyectId, user user_id, String texto, LocalDateTime fecha_creacion) {
         this.comment_id = comment_id;
         this.proyectId = proyectId;
         this.user_id = user_id;
@@ -49,11 +49,11 @@ public class Comments {
         this.comment_id = comment_id;
     }
 
-    public proyects getProyectId() {
+    public filas getProyectId() {
         return proyectId;
     }
 
-    public void setProyectId(proyects proyectId) {
+    public void setProyectId(filas proyectId) {
         this.proyectId = proyectId;
     }
 

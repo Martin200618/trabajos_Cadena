@@ -33,23 +33,23 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Contenido a la izquierda -->
-      <div class="d-flex align-items-center">
-        <a class="navbar-brand mb-0 me-2" href="#">
-          <img src="./img/logo.jpg" alt="logo" width="60">
-        </a>
-        <span class="navbar-brand mb-0 h1">Proyectos de software</span>
-      </div>
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand mb-0 me-2" href="#">
+        <img src="./img/logo.jpg" alt="logo" width="60">
+      </a>
+      <span class="navbar-brand mb-0 h1">Proyectos de software</span>
+    </div>
 
     <!-- Botón hamburguesa -->
-      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- Botones en pantallas grandes -->
-      <div class="d-none d-lg-block">
-        <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
-      </div>
+    <!-- Botones en pantallas grandes -->
+    <div class="d-none d-lg-block">
+      <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</button>
+    </div>
 
     <!-- Menú lateral (offcanvas) -->
     <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -111,66 +111,65 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer text-center py-3 bg-light mt-auto">
-    &copy; 2025 Gestión de Proyectos. Todos los derechos reservados.
-  </footer>
+<footer class="footer text-center py-3 bg-light mt-auto">
+  &copy; 2025 Gestión de Proyectos. Todos los derechos reservados.
+</footer>
 
-<!-- MODAL LOGIN -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> <!-- Aquí está la clase añadida -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  <!-- MODAL LOGIN -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form onsubmit="event.preventDefault(); loginUser();">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="loginEmail" placeholder="usuario@correo.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+        </div>
       </div>
-      <div class="modal-body">
-        <form onsubmit="event.preventDefault(); loginUser();">
-          <div class="mb-3">
-            <label for="loginEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="loginEmail" placeholder="usuario@correo.com" required>
+    </div>
+  </div>
+
+  <!-- Modal de Registro -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
-          <div class="mb-3">
-            <label for="loginPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre completo</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Modal de Registro -->
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
-        <div class="modal-header">
-          <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nombre completo</label>
-            <input type="text" class="form-control" id="name" required>
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Registrar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <script src="./js/login-register.js"></script>
 <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
 </body>

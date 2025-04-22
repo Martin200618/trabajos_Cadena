@@ -2,46 +2,40 @@ package com.sena.crud_basic.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import com.sena.crud_basic.DTO.proyectDTO;
+import com.sena.crud_basic.DTO.filasDTO;
 import com.sena.crud_basic.DTO.responseDTO;
-import com.sena.crud_basic.model.proyects;
-import com.sena.crud_basic.repository.Iproyects;
+import com.sena.crud_basic.model.filas;
+import com.sena.crud_basic.repository.Ifilas;
 
 @Service
-public class proyectService {
+public class filasService {
 
     @Autowired
-    private Iproyects data;
+    private Ifilas data;
 
     private static final int MAX_PROJECTS = 100; // Límite máximo de proyectos permitidos
 
     // Obtener todos los proyectos
-    public List<proyects> findAll() {
+    public List<filas> findAll() {
         return data.findAll();
     }
 
     // Contar el total de proyectos (nuevo método)
-    public int countAllProyects() {
+    public int countAllFilas() {
         return (int) data.count(); // Consulta optimizada
     }
 
     // Obtener un proyecto por ID
-    public Optional<proyects> findById(int proyectId) {
-        return data.findById(proyectId);
+    public Optional<filas> findById(int filasId) {
+        return data.findById(filasId);
     }
 
     // Registrar un nuevo proyecto con validación de límite
-    public responseDTO save(proyectDTO proyectDTO) {
-        if (
-            proyectDTO == null || 
-            proyectDTO.getName() == null || 
-            proyectDTO.getDescripcion() == null || 
-            proyectDTO.getimagenBase64() == null
+    public responseDTO save(filasDTO filasDTO) {
+        if (filasDTO.getNumero() == 0 || filasDTO.getDescripcion() == null || filasDTO.getDescripcion() == null
         ){
             return new responseDTO(
                 HttpStatus.BAD_REQUEST.toString(), 
@@ -50,85 +44,83 @@ public class proyectService {
         }
 
         // Verificar límite de proyectos
-        int currentCount = countAllProyects();
+        int currentCount = countAllFilas();
         if (currentCount >= MAX_PROJECTS) {
             return new responseDTO(
                 HttpStatus.FORBIDDEN.toString(), 
-                "No se pueden agregar más proyectos. Límite alcanzado."
+                "No se pueden agregar más filas. Límite alcanzado."
             );
         }
 
         // Crear y guardar el nuevo proyecto
-        proyects newProyect = new proyects();
-        newProyect.setNombre(proyectDTO.getName());
-        newProyect.setDescripcion(proyectDTO.getDescripcion());
-        newProyect.setImagenBase64(proyectDTO.getimagenBase64());
+        filas newFilas = new filas();
+        newFilas.setNumero(filasDTO.getNumero());
+        newFilas.setDescripcion(filasDTO.getDescripcion());
 
         try {
-            data.save(newProyect);
+            data.save(newFilas);
             return new responseDTO(
                 HttpStatus.OK.toString(), 
-                "Proyecto registrado exitosamente"
+                "Filas registrado exitosamente"
             );
         } catch (Exception e) {
             return new responseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
-                "Error al registrar el proyecto"
+                "Error al registrar la fila"
             );
         }
     }
 
     // Actualizar un proyecto existente
-    public responseDTO update(int proyectId, proyectDTO proyectDTO) {
-        Optional<proyects> existingProyect = findById(proyectId);
+    public responseDTO update(int filasId, filasDTO filasDTO) {
+        Optional<filas> existingFilas = findById(filasId);
 
-        if (!existingProyect.isPresent()) {
+        if (!existingFilas.isPresent()) {
             return new responseDTO(
                 HttpStatus.BAD_REQUEST.toString(), 
-                "No encontramos el proyecto"
+                "No encontramos la filas"
             );
         }
 
         // Actualizar los valores del proyecto
-        proyects proyectToUpdate = existingProyect.get();
-        proyectToUpdate.setNombre(proyectDTO.getName());
-        proyectToUpdate.setImagenBase64(proyectDTO.getimagenBase64());
-        proyectToUpdate.setDescripcion(proyectDTO.getDescripcion());
+        filas filasToUpdate = existingFilas.get();
+        filasToUpdate.setNumero(filasDTO.getNumero());
+        filasToUpdate.setDescripcion(filasDTO.getDescripcion());
 
         try {
-            data.save(proyectToUpdate);
+            data.save(filasToUpdate);
             return new responseDTO(
                 HttpStatus.OK.toString(), 
-                "Proyecto actualizado correctamente"
+                "Filas actualizado correctamente"
             );
         } catch (Exception e) {
             return new responseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
-                "Error al actualizar el proyecto"
+                "Error al actualizar la fila"
             );
         }
     }
 
     // Eliminar un proyecto por ID
-    public responseDTO deleteProyects(int proyectId) {
-        Optional<proyects> existingProyect = findById(proyectId);
-        if (!existingProyect.isPresent()) {
+    public responseDTO deleteFilas(int filasId) {
+        Optional<filas> existingFilas = findById(filasId);
+        if (!existingFilas.isPresent()) {
             return new responseDTO(
                 HttpStatus.BAD_REQUEST.toString(), 
-                "El proyecto no existe o ya fue eliminado"
+                "El filas no existe o ya fue eliminado"
             );
         }
 
         try {
-            data.deleteById(proyectId);
+            data.deleteById(filasId);
             return new responseDTO(
                 HttpStatus.OK.toString(), 
-                "Proyecto eliminado correctamente"
+                "Fila eliminada correctamente"
             );
         } catch (Exception e) {
             return new responseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.toString(), 
-                "Error al eliminar el proyecto"
+                "Error al eliminar la fila"
             );
         }
     }

@@ -5,15 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.sena.crud_basic.DTO.responseDTO;
 import com.sena.crud_basic.DTO.userDTO;
 import com.sena.crud_basic.service.userService;
@@ -29,17 +21,28 @@ public class userController {
     @PostMapping
     public ResponseEntity<Object> registerUser(@RequestBody userDTO user) {
         responseDTO response = userService.save(user);
-        if (response.getStatus().equals(HttpStatus.BAD_REQUEST.toString())) {
-            return new ResponseEntity<>(response.getMessage(), HttpStatus.BAD_REQUEST);
+        if (response.getStatus().equals(
+            HttpStatus.BAD_REQUEST.toString())
+        ) {
+            return new ResponseEntity<>(
+                response.getMessage(), 
+                HttpStatus.BAD_REQUEST
+            );
         }
-        return new ResponseEntity<>(response.getMessage(), HttpStatus.OK);
+        return new ResponseEntity<>(
+            response.getMessage(), 
+            HttpStatus.OK
+        );
     }
 
     // Obtener todos los usuarios
     @GetMapping("/")
     public ResponseEntity<Object> getAllUser() {
         var userList = userService.findAll();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        return new ResponseEntity<>(
+            userList, 
+            HttpStatus.OK
+        );
     }
 
     // Login de usuario
@@ -51,10 +54,17 @@ public class userController {
         responseDTO response = userService.login(email, password);
         Map<String, String> responseBody = Map.of("message", response.getMessage());
 
-        if (response.getStatus().equals(HttpStatus.UNAUTHORIZED.toString())) {
-            return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
+        if (response.getStatus().equals(HttpStatus.UNAUTHORIZED.toString())
+        ) {
+            return new ResponseEntity<>(
+                responseBody, 
+                HttpStatus.UNAUTHORIZED
+            );
         }
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(
+            responseBody, 
+            HttpStatus.OK
+        );
     }
 
     // Obtener un usuario por ID
@@ -62,16 +72,25 @@ public class userController {
     public ResponseEntity<Object> getOneUser(@PathVariable int user_id) {
         var user = userService.findById(user_id);
         if (!user.isPresent()) {
-            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                "Usuario no encontrado", 
+                HttpStatus.NOT_FOUND
+            );
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(
+            user, 
+            HttpStatus.OK
+        );
     }
 
     // Eliminar un usuario por ID
     @DeleteMapping("/delete/{user_id}")
     public ResponseEntity<Object> deleteUser(@PathVariable int user_id) {
         var message = userService.deleteUser(user_id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return new ResponseEntity<>(
+            message, 
+            HttpStatus.OK
+        );
     }
 
     // Actualizar un usuario por ID
@@ -79,9 +98,15 @@ public class userController {
     public ResponseEntity<Object> updateUser(@PathVariable int user_id, @RequestBody userDTO user) {
         var existingUser = userService.findById(user_id);
         if (!existingUser.isPresent()) {
-            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                "Usuario no encontrado", 
+                HttpStatus.NOT_FOUND
+            );
         }
         responseDTO response = userService.update(user_id, user);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+            response, 
+            HttpStatus.OK
+        );
     }
 }
