@@ -1,7 +1,6 @@
 package com.sena.crud_basic.DTO;
 
 import java.time.LocalDateTime;
-
 import com.sena.crud_basic.model.user;
 
 public class ActivityDTO {

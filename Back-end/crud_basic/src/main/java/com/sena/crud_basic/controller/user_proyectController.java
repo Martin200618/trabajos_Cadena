@@ -12,7 +12,7 @@ import com.sena.crud_basic.service.user_proyectService;
 
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
-@RequestMapping("api/v1/teams")
+@RequestMapping("api/v1/user_proyect")
 public class user_proyectController {
     @Autowired
     private user_proyectService user_proyectService;
