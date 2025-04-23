@@ -110,4 +110,14 @@ async function deleteProject(proyectId) {
   fetchProjects();
 }
 
+//inicializar el formulario y la tabla
 fetchProjects();
+
+// limpiar el formulario al cargar la página
+function limpiarFormulario() {
+  document.getElementById("projectId").value = "";
+  document.getElementById("projectName").value = "";
+  document.getElementById("projectImage").value = "";
+  document.getElementById("projectDescription").value = "";
+  submitButton.disabled = false; // Habilitar el botón de envío
+}

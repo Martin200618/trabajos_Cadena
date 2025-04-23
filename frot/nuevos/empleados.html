@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Empleados</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+  <!-- Barra de Navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Tienda de Videojuegos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link active" href="./index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./video_juegos.html">Gestionar Videojuegos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./proveedores.html">Gestionar Proveedores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./inventario.html">Gestionar Inventario</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./ventas.html">Gestionar Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./empleados.html">Gestionar Empleados</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./desarrolladores.html">Gestionar Desarrolladores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./categorias.html">Gestionar categorias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./detalles_venta.html">Gestionar Detalles de Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./reseñas.html">Gestionar reseñas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./plataformas.html">Gestionar Plataformas</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <h2>Gestión de Empleados</h2>
+
+  <!-- Formulario para Agregar/Editar Empleado -->
+  <form id="formEmpleado">
+    <input type="hidden" id="empleadoId">
+    
+    <div class="mb-3">
+      <label for="nombreEmpleado" class="form-label">Nombre</label>
+      <input type="text" id="nombreEmpleado" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="cargo" class="form-label">Cargo</label>
+      <input type="text" id="cargo" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="salario" class="form-label">Salario</label>
+      <input type="number" id="salario" class="form-control" step="0.01" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+      <input type="date" id="fechaIngreso" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Empleado</button>
+  </form>
+
+  <hr>
+
+  <!-- Tabla con los Empleados -->
+  <h4>Listado de Empleados</h4>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cargo</th>
+        <th>Salario</th>
+        <th>Fecha de Ingreso</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="tablaEmpleados">
+      <!-- Los empleados se cargarán aquí -->
+    </tbody>
+  </table>
+<script src="../js/empleados.js"></script>
+</body>
+</html>

@@ -1,100 +1,93 @@
--- Create the database
-CREATE DATABASE online_store;
-USE online_store;
+CREATE DATABASE tienda_videojuegos;
+USE tienda_videojuegos;
 
--- Users Table
-CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    address TEXT,
-    phone VARCHAR(15),
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- 1. Clientes
+CREATE TABLE Clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100),
+    telefono VARCHAR(20),
+    direccion VARCHAR(200)
 );
 
--- Product Categories Table
-CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+-- 2. Videojuegos
+CREATE TABLE Videojuegos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    id_categoria INT,
+    id_plataforma INT,
+    id_desarrollador INT,
+    precio DECIMAL(10,2),
+    fecha_lanzamiento DATE,
+    FOREIGN KEY (id_categoria) REFERENCES Categorías(id),
+    FOREIGN KEY (id_plataforma) REFERENCES Plataformas(id),
+    FOREIGN KEY (id_desarrollador) REFERENCES Desarrolladores(id)
 );
 
--- Products Table
-CREATE TABLE products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    stock INT NOT NULL,
-    category_id INT,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+-- 3. Plataformas
+CREATE TABLE Plataformas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50)
 );
 
--- Orders Table
-CREATE TABLE orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total DECIMAL(10,2) NOT NULL,
-    status ENUM('Pending', 'Shipped', 'Delivered', 'Canceled') DEFAULT 'Pending',
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+-- 4. Categorías
+CREATE TABLE Categorías (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50)
 );
 
--- Order Details Table
-CREATE TABLE order_details (
-    detail_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    product_id INT,
-    quantity INT NOT NULL,
-    subtotal DECIMAL(10,2) NOT NULL,
-    image VARCHAR(255), -- Field to store the image URL or file name
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+-- 5. Desarrolladores
+CREATE TABLE Desarrolladores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    pais VARCHAR(50)
 );
 
--- Payment Methods Table
-CREATE TABLE payment_methods (
-    payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    method VARCHAR(50) NOT NULL
+-- 6. Proveedores
+CREATE TABLE Proveedores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    contacto VARCHAR(100),
+    telefono VARCHAR(20)
 );
 
--- Shipments Table
-CREATE TABLE shipments (
-    shipment_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    address TEXT NOT NULL,
-    status ENUM('In Transit', 'Delivered', 'Returned') DEFAULT 'In Transit',
-    shipment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+-- 7. Inventario
+CREATE TABLE Inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_videojuego INT,
+    id_proveedor INT,
+    stock INT,
+    fecha_entrada DATE,
+    FOREIGN KEY (id_videojuego) REFERENCES Videojuegos(id),
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id)
 );
 
--- Suppliers Table
-CREATE TABLE suppliers (
-    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    contact VARCHAR(100),
-    phone VARCHAR(15)
+-- 8. Ventas
+CREATE TABLE Ventas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_empleado INT,
+    fecha DATE,
+    total DECIMAL(10,2),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id)
 );
 
--- Inventory Table
-CREATE TABLE inventory (
-    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
-    supplier_id INT,
-    quantity INT NOT NULL,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(product_id),
-    FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id)
+-- 9. DetallesVenta
+CREATE TABLE DetallesVenta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT,
+    id_videojuego INT,
+    cantidad INT,
+    precio_unitario DECIMAL(10,2),
+    FOREIGN KEY (id_venta) REFERENCES Ventas(id),
+    FOREIGN KEY (id_videojuego) REFERENCES Videojuegos(id)
 );
 
--- Product Reviews Table
-CREATE TABLE reviews (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    product_id INT,
-    rating INT CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
-    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+-- 10. Empleados
+CREATE TABLE Empleados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    puesto VARCHAR(50),
+    email VARCHAR(100)
 );
