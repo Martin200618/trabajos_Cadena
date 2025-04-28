@@ -1,0 +1,51 @@
+.material-img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .upload-btn {
+    margin-top: 20px;
+  }
+
+  .custom-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-body {
+    flex-grow: 1;
+  }
+
+  body {
+    background-color: #121212; /* Fondo negro */
+    color: #000000; /* Texto blanco */
+  }
+
+  .navbar-dark {
+    background-color: #8B0000; /* Rojo oscuro para el navbar */
+  }
+
+  footer {
+    background-color: #000; /* Negro total */
+    color: #000000; /* Texto blanco */
+  }
+
+  h1.display-4 {
+    color: #FF4500; /* Rojo brillante para el título principal */
+  }
+
+  p.lead {
+    color: #FF6347; /* Rojo suave para el texto descriptivo */
+  }
+
+  .btn-outline-light {
+    border-color: #FF0000; /* Botones con borde rojo */
+    color: #FF0000; /* Texto rojo en los botones */
+  }
+
+  .btn-outline-light:hover {
+    background-color: #FF0000; /* Fondo rojo al pasar el cursor */
+    color: #000000; /* Texto blanco */
+  }
