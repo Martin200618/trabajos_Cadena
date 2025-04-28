@@ -1,49 +1,59 @@
-CREATE DATABASE tienda_videojuegos;
-USE tienda_videojuegos;
+CREATE DATABASE aplicacion_musica;
+USE aplicacion_musica;
 
--- 1. Clientes
-CREATE TABLE Clientes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
-    email VARCHAR(100),
-    telefono VARCHAR(20),
-    direccion VARCHAR(200)
-);
-
--- 2. Videojuegos
-CREATE TABLE Videojuegos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(100),
-    id_categoria INT,
-    id_plataforma INT,
-    id_desarrollador INT,
-    precio DECIMAL(10,2),
-    fecha_lanzamiento DATE,
-    FOREIGN KEY (id_categoria) REFERENCES Categorías(id),
-    FOREIGN KEY (id_plataforma) REFERENCES Plataformas(id),
-    FOREIGN KEY (id_desarrollador) REFERENCES Desarrolladores(id)
-);
-
--- 3. Plataformas
-CREATE TABLE Plataformas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50)
-);
-
--- 4. Categorías
-CREATE TABLE Categorías (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50)
-);
-
--- 5. Desarrolladores
-CREATE TABLE Desarrolladores (
+-- 1. Artistas
+CREATE TABLE Artistas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     pais VARCHAR(50)
 );
 
--- 6. Proveedores
+-- 2. Álbumes
+CREATE TABLE Albumes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    id_artista INT,
+    fecha_lanzamiento DATE,
+    FOREIGN KEY (id_artista) REFERENCES Artistas(id)
+);
+
+-- 3. Géneros
+CREATE TABLE Generos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+
+-- 4. Canciones
+CREATE TABLE Canciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    duracion TIME,
+    id_album INT,
+    id_genero INT,
+    id_productor INT,
+    id_estudio INT,
+    FOREIGN KEY (id_album) REFERENCES Albumes(id),
+    FOREIGN KEY (id_genero) REFERENCES Generos(id),
+    FOREIGN KEY (id_productor) REFERENCES Productores(id),
+    FOREIGN KEY (id_estudio) REFERENCES EstudiosGrabacion(id)
+);
+
+-- 5. Productores
+CREATE TABLE Productores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    experiencia_anios INT
+);
+
+-- 6. Estudios de Grabación
+CREATE TABLE EstudiosGrabacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    ciudad VARCHAR(100),
+    pais VARCHAR(50)
+);
+
+-- 7. Proveedores (de CDs, vinilos u otros formatos físicos)
 CREATE TABLE Proveedores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
@@ -51,37 +61,24 @@ CREATE TABLE Proveedores (
     telefono VARCHAR(20)
 );
 
--- 7. Inventario
+-- 8. Inventario
 CREATE TABLE Inventario (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_videojuego INT,
+    id_album INT,
     id_proveedor INT,
     stock INT,
     fecha_entrada DATE,
-    FOREIGN KEY (id_videojuego) REFERENCES Videojuegos(id),
+    FOREIGN KEY (id_album) REFERENCES Albumes(id),
     FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id)
 );
 
--- 8. Ventas
+-- 9. Ventas
 CREATE TABLE Ventas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT,
     id_empleado INT,
     fecha DATE,
     total DECIMAL(10,2),
-    FOREIGN KEY (id_cliente) REFERENCES Clientes(id),
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id)
-);
-
--- 9. DetallesVenta
-CREATE TABLE DetallesVenta (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_venta INT,
-    id_videojuego INT,
-    cantidad INT,
-    precio_unitario DECIMAL(10,2),
-    FOREIGN KEY (id_venta) REFERENCES Ventas(id),
-    FOREIGN KEY (id_videojuego) REFERENCES Videojuegos(id)
 );
 
 -- 10. Empleados

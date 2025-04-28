@@ -48,3 +48,18 @@ const filtrarVideojuegos = () => {
 
 // Inicializar
 cargarVideojuegos();
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("http://localhost:8080/api/artistas")  // Cambia por tu ruta real
+    .then(response => response.json())
+    .then(data => {
+      const lista = document.getElementById("lista-artistas");
+      data.forEach(artista => {
+        const li = document.createElement("li");
+        li.className = "list-group-item bg-secondary text-light";
+        li.textContent = artista.nombre + " (" + artista.pais + ")";
+        lista.appendChild(li);
+      });
+    })
+    .catch(error => console.error("Error al cargar artistas:", error));
+});
