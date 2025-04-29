@@ -19,12 +19,20 @@ public class ArtistasService {
 
     // Obtener todos los artistas
     public List<Artistas> findAll() {
-        return artistasRepository.findAll();
+        try {
+            return artistasRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener los artistas: " + e.getMessage());
+        }
     }
 
     // Obtener artista por ID
-    public Optional<Artistas> findById(int id) {
-        return artistasRepository.findById(id);
+    public Optional<Artistas> findById(int Artistas_id) {
+        try {
+            return artistasRepository.findById(Artistas_id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener el artista con ID: " + Artistas_id + ", Error: " + e.getMessage());
+        }
     }
 
     // Registrar un artista
@@ -33,36 +41,48 @@ public class ArtistasService {
             return HttpStatus.BAD_REQUEST.toString() + ": Los datos del artista son inválidos";
         }
 
-        Artistas artista = convertToModel(artistasDTO);
-        artistasRepository.save(artista);
-        return HttpStatus.OK.toString() + ": Artista registrado exitosamente";
+        try {
+            Artistas artista = convertToModel(artistasDTO);
+            artistasRepository.save(artista);
+            return HttpStatus.OK.toString() + ": Artista registrado exitosamente";
+        } catch (Exception e) {
+            return HttpStatus.INTERNAL_SERVER_ERROR.toString() + ": Error al registrar el artista, Detalle: " + e.getMessage();
+        }
     }
 
     // Actualizar un artista
-    public String update(int id, ArtistasDTO artistasDTO) {
-        Optional<Artistas> existingArtista = findById(id);
+    public String update(int Artistas_id, ArtistasDTO artistasDTO) {
+        Optional<Artistas> existingArtista = findById(Artistas_id);
 
         if (!existingArtista.isPresent()) {
-            return HttpStatus.BAD_REQUEST.toString() + ": El artista no existe o ya fue eliminado";
+            return HttpStatus.NOT_FOUND.toString() + ": El artista con ID " + Artistas_id + " no existe o ya fue eliminado";
         }
 
-        Artistas artistaToUpdate = existingArtista.get();
-        artistaToUpdate.setNombre(artistasDTO.getNombre());
-        artistaToUpdate.setPais(artistasDTO.getPais());
-        artistasRepository.save(artistaToUpdate);
-        return HttpStatus.OK.toString() + ": Artista actualizado correctamente";
+        try {
+            Artistas artistaToUpdate = existingArtista.get();
+            artistaToUpdate.setNombre(artistasDTO.getNombre());
+            artistaToUpdate.setPais(artistasDTO.getPais());
+            artistasRepository.save(artistaToUpdate);
+            return HttpStatus.OK.toString() + ": Artista actualizado correctamente";
+        } catch (Exception e) {
+            return HttpStatus.INTERNAL_SERVER_ERROR.toString() + ": Error al actualizar el artista, Detalle: " + e.getMessage();
+        }
     }
 
     // Eliminar artista por ID
-    public String delete(int id) {
-        Optional<Artistas> artista = findById(id);
+    public String delete(int Artistas_id) {
+        Optional<Artistas> artista = findById(Artistas_id);
 
         if (!artista.isPresent()) {
-            return HttpStatus.BAD_REQUEST.toString() + ": El artista no existe o ya fue eliminado";
+            return HttpStatus.NOT_FOUND.toString() + ": El artista con ID " + Artistas_id + " no existe o ya fue eliminado";
         }
 
-        artistasRepository.deleteById(id);
-        return HttpStatus.OK.toString() + ": Artista eliminado correctamente";
+        try {
+            artistasRepository.deleteById(Artistas_id);
+            return HttpStatus.OK.toString() + ": Artista eliminado correctamente";
+        } catch (Exception e) {
+            return HttpStatus.INTERNAL_SERVER_ERROR.toString() + ": Error al eliminar el artista, Detalle: " + e.getMessage();
+        }
     }
 
     // Conversión de DTO a Entidad

@@ -61,7 +61,23 @@
               <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="offcanvas">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="offcanvas">Registro</a>
+              <div class="dropdown d-inline">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownCruds" data-bs-toggle="dropdown" style="border-color: #FF0000; color: #FF0000;" aria-expanded="false">
+                  Cruds
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCruds">
+                  <li><a class="dropdown-item" href="./album.html" style="color: #FF0000;">Albums</a></li>
+                  <li><a class="dropdown-item" href="./artistas.html" style="color: #FF0000;">Artistas</a></li>
+                  <li><a class="dropdown-item" href="./canciones.html" style="color: #FF0000;">Canciones</a></li>
+                  <li><a class="dropdown-item" href="./empleados.html" style="color: #FF0000;">Empleados</a></li>
+                  <li><a class="dropdown-item" href="./EstudiosGrabacion.html" style="color: #FF0000;">Estudios de grabacion</a></li>
+                  <li><a class="dropdown-item" href="./generos.html" style="color: #FF0000;">Generos</a></li>
+                  <li><a class="dropdown-item" href="./inventario.html" style="color: #FF0000;">Inventario</a></li>
+                  <li><a class="dropdown-item" href="./productores.html" style="color: #FF0000;">Productores</a></li>
+                  <li><a class="dropdown-item" href="./proveedores.html" style="color: #FF0000;">Proveedores</a></li>
+                  <li><a class="dropdown-item" href="./ventas.html" style="color: #FF0000;">Ventas</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
@@ -75,12 +91,48 @@
     <p class="lead" style="color: #FF6347;">Comparte tus canciones, playlists o álbumes favoritos.</p>
   </div>
 
+  <!-- FORMULARIO PARA CRUD -->
+  <div class="container">
+    <h2 class="text-white">Registrar Artista</h2>
+    <form id="artistaForm" class="mb-4">
+      <input type="hidden" id="artistaId"> <!-- Campo oculto para ID -->
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input type="text" id="nombreArtista" class="form-control" placeholder="Nombre" required>
+        </div>
+        <div class="col-md-6">
+          <input type="text" id="paisArtista" class="form-control" placeholder="País" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Registrar Artista</button>
+    </form>
+
+    <!-- Tabla para mostrar los artistas -->
+    <div class="container mt-4">
+      <table id="artistasTable" class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>País</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Las filas serán generadas dinámicamente aquí -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
   <!-- FOOTER -->
   <footer class="footer text-center py-3 mt-auto" style="background-color: #000; color: #fff;">
     &copy; 2025 Proyectos Musicales. Todos los derechos reservados.
   </footer>
 
-  <script src="./js/login-register.js"></script>
+  <script src="./js/artistas.js"></script>
   <script src="./bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.sena.crud_basic.repository.IArtistasRepository;
 
-
 @Service
 public class AlbumesService {
 
@@ -59,22 +58,8 @@ public class AlbumesService {
         if (artista.isEmpty()) {
             return HttpStatus.BAD_REQUEST.toString() + ": El artista asociado no existe";
         }
-        Albumes albumToUpdate = existingAlbum.get();
-        try {
-            Date fechaLanzamiento = new SimpleDateFormat("yyyy-MM-dd").parse(albumesDTO.getFechaLanzamiento());
-            albumToUpdate.setFechaLanzamiento(new java.sql.Date(fechaLanzamiento.getTime()));
-        } catch (ParseException e) {
-            throw new RuntimeException("Error al parsear la fecha de lanzamiento: " + albumesDTO.getFechaLanzamiento(), e);
-        }
-        albumToUpdate.setTitulo(albumesDTO.getTitulo());
-        try {
-            Date fechaLanzamiento = new SimpleDateFormat("yyyy-MM-dd").parse(albumesDTO.getFechaLanzamiento());
-            albumToUpdate.setFechaLanzamiento(new java.sql.Date(fechaLanzamiento.getTime()));
-        } catch (ParseException e) {
-            throw new RuntimeException("Error al parsear la fecha de lanzamiento: " + albumesDTO.getFechaLanzamiento(), e);
-        }
-        albumToUpdate.setArtista(artista.get());
 
+        Albumes albumToUpdate = updateFields(existingAlbum.get(), albumesDTO, artista.get());
         albumesRepository.save(albumToUpdate);
         return HttpStatus.OK.toString() + ": Álbum actualizado correctamente";
     }
@@ -103,5 +88,19 @@ public class AlbumesService {
         } catch (ParseException e) {
             throw new RuntimeException("Error al parsear la fecha de lanzamiento: " + albumesDTO.getFechaLanzamiento(), e);
         }
+    }
+
+    // Método para actualizar los campos de un álbum
+    private Albumes updateFields(Albumes albumToUpdate, AlbumesDTO albumesDTO, Artistas artista) {
+        try {
+            Date fechaLanzamiento = new SimpleDateFormat("yyyy-MM-dd").parse(albumesDTO.getFechaLanzamiento());
+            albumToUpdate.setFechaLanzamiento(new java.sql.Date(fechaLanzamiento.getTime()));
+        } catch (ParseException e) {
+            throw new RuntimeException("Error al parsear la fecha de lanzamiento: " + albumesDTO.getFechaLanzamiento(), e);
+        }
+
+        albumToUpdate.setTitulo(albumesDTO.getTitulo());
+        albumToUpdate.setArtista(artista);
+        return albumToUpdate;
     }
 }

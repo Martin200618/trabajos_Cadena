@@ -15,7 +15,8 @@ public class corsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Permitir solicitudes desde estos orígenes específicos
-        config.addAllowedOrigin("http://127.0.0.1:5500"); // Frontend local
+        config.addAllowedOrigin("http://127.0.0.1:5500");
+        config.addAllowedOrigin("http://localhost:5500");
 
         // Métodos HTTP permitidos
         config.addAllowedMethod("GET");
